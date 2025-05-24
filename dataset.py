@@ -20,5 +20,3 @@ def get_bundesliga_results():
     file_download = requests.get(full_url)
     with open("AUT.xlsx", "wb") as f:
         f.write(file_download.content)
-
-get_bundesliga_results()
