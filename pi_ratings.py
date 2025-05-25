@@ -1,19 +1,17 @@
 import pandas as pd
 import penaltyblog as pb
-from dataset import get_bundesliga_results
+from dataset import GetBundesligaResults
 
 # # run only once
-# get_bundesliga_results()
+#GetBundesligaResults()
 
+BUNDESLIGA_RESULTS = pd.read_csv("AUT.csv")
 BUNDESLIGA_TEAMS = ["Wolfsberger AC", "Austria Vienna", "SK Rapid", "Sturm Graz",
                     "BW Linz", "Salzburg", "Hartberg","Tirol","Grazer AK","LASK",
                     "Altach","A. Klagenfurt"]
+
 PI_RATINGS = pb.ratings.PiRatingSystem()
 
-#reading Excel file and cleaning data
-# For the glossary, read: https://www.football-data.co.uk/notes.txt
-BUNDESLIGA_RESULTS = pd.read_excel("AUT.xlsx").drop(columns=["BFECH","BFECD","BFECA"])
-BUNDESLIGA_RESULTS.rename(columns={"HG":"home_goals","AG":"away_goals","Res":"Result"},inplace=True)
 
 
 class PiRatingCalculator:
