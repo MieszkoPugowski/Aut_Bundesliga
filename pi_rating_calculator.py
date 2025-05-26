@@ -2,10 +2,9 @@ import pandas as pd
 import penaltyblog as pb
 from dataset import GetBundesligaResults
 
-# # run only once
-#GetBundesligaResults()
 
-BUNDESLIGA_RESULTS = pd.read_csv("AUT.csv")
+
+BUNDESLIGA_RESULTS = GetBundesligaResults().return_df()
 BUNDESLIGA_TEAMS = ["Wolfsberger AC", "Austria Vienna", "SK Rapid", "Sturm Graz",
                     "BW Linz", "Salzburg", "Hartberg","Tirol","Grazer AK","LASK",
                     "Altach","Ried"]
