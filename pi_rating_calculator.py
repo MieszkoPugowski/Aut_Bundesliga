@@ -8,7 +8,7 @@ from dataset import GetBundesligaResults
 BUNDESLIGA_RESULTS = pd.read_csv("AUT.csv")
 BUNDESLIGA_TEAMS = ["Wolfsberger AC", "Austria Vienna", "SK Rapid", "Sturm Graz",
                     "BW Linz", "Salzburg", "Hartberg","Tirol","Grazer AK","LASK",
-                    "Altach","A. Klagenfurt"]
+                    "Altach","Ried"]
 
 PI_RATINGS = pb.ratings.PiRatingSystem()
 
