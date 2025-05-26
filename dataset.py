@@ -1,9 +1,9 @@
+import io
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import pandas
-
+import csv
 
 class GetBundesligaResults:
     """
@@ -12,8 +12,7 @@ class GetBundesligaResults:
     """
     def __init__(self):
         self.url ="https://www.football-data.co.uk/austria.php"
-        self._get_bundesliga_results()
-        self._clean_dataframe()
+        self.df = None
 
     def _get_bundesliga_results(self):
         r = requests.get(self.url)
@@ -21,15 +20,20 @@ class GetBundesligaResults:
 
         # Looping through all links on a site and picking only these with a xlsx file
         # Two links give AUT.xlsx, so we're picking the first one's text
-        file_link = [link for link in soup.find_all('a') if link['href'].endswith('xlsx')][0]['href']
+        file_link = [link for link in soup.find_all('a') if link['href'].endswith('csv')][0]['href']
         full_url = urljoin(self.url,file_link)
         file_download = requests.get(full_url)
-        with open("AUT.xlsx", "wb") as f:
-            f.write(file_download.content)
+        self.file_content = file_download.content.decode('utf-8')
 
-    def _clean_dataframe(self):
-        clean_df = pd.read_excel("AUT.xlsx")
-        clean_df = clean_df.drop(columns=['Country','League','MaxCH','MaxCD','MaxCA',
+
+    def _clean_dataframe(self) -> pd.DataFrame:
+        df = pd.read_csv(io.StringIO(self.file_content))
+        df = df.drop(columns=['Country','League','MaxCH','MaxCD','MaxCA',
                        'BFECH','BFECD','BFECA','PSCD','PSCH','PSCA'])
-        clean_df = clean_df.rename(columns={"HG":"Home_goals","AG":"Away_goals","Res":"Result"})
-        clean_df.to_csv("AUT.csv")
+        df = df.rename(columns={"HG":"Home_goals","AG":"Away_goals","Res":"Result"})
+        return df
+
+    def return_df(self):
+        self._get_bundesliga_results()
+        return self._clean_dataframe()
+
