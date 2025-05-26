@@ -30,6 +30,6 @@ class GetBundesligaResults:
     def _clean_dataframe(self):
         clean_df = pd.read_excel("AUT.xlsx")
         clean_df = clean_df.drop(columns=['Country','League','MaxCH','MaxCD','MaxCA',
-                       'BFECH','BFECD','BFECA'])
+                       'BFECH','BFECD','BFECA','PSCD','PSCH','PSCA'])
         clean_df = clean_df.rename(columns={"HG":"Home_goals","AG":"Away_goals","Res":"Result"})
         clean_df.to_csv("AUT.csv")
