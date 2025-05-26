@@ -19,14 +19,14 @@ class PiRatingCalculator:
     Calculating Pi Rating for each Bundesliga team.
     For more info, read: https://pena.lt/y/2025/04/14/pi-ratings-the-smarter-way-to-rank-football-teams/
     '''
-    def __init__(self,teams:list,):
-        self.teams_list = teams
+    def __init__(self):
+        self.teams_list = BUNDESLIGA_TEAMS
         self.teams_ratings = []
         self._update_pi_ratings()
 
     def _update_pi_ratings(self):
         for idx, row in BUNDESLIGA_RESULTS.iterrows():
-            goal_diff = row["home_goals"] - row["away_goals"]
+            goal_diff = row["Home_goals"] - row["Away_goals"]
             PI_RATINGS.update_ratings(row["Home"], row["Away"], goal_diff, row["Date"])
 
     def calculate_rating(self):
