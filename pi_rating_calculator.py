@@ -32,11 +32,11 @@ class PiRatingCalculator:
         for team in self.teams_list:
             team_rating = [x for x in PI_RATINGS.rating_history if x["team"] == team]
             self.teams_ratings.append(team_rating)
-        self._create_dataframe()
+        return self._create_dataframe()
 
     def _create_dataframe(self):
         ratings_df = pd.DataFrame()
-        for list in self.teams_ratings:
-            df = pd.DataFrame(list)
+        for team in self.teams_ratings:
+            df = pd.DataFrame(team)
             ratings_df = pd.concat([ratings_df,df])
-        ratings_df.to_csv("pi_ratings.csv",index=False)
+        return ratings_df
