@@ -7,7 +7,7 @@ class CreateFixture:
         "BW Linz", "Salzburg", "Hartberg", "Tirol", "Grazer AK", "LASK",
         "Altach", "Ried"
     ]
-        self.fixtures=[]
+        self.games_dict = {}
 
 
     def _generate_fixtures(self,teams):
@@ -33,14 +33,12 @@ class CreateFixture:
         second_half = [[(away, home) for (home, away) in round] for round in first_half]
         self.all_rounds = first_half + second_half
 
-    def create_gameweeks_list(self):
+    def create_gameweeks_dict(self):
         self._set_fixtures_order()
-        games_dict = {}
         for gw, matches in enumerate(self.all_rounds, start=1):
             match_list = []
             for match in matches:
                 lineup=(match[0],match[1])
                 match_list.append(lineup)
-            games_dict[gw]=match_list
-        self.fixtures.append(games_dict)
-        return self.fixtures
+            self.games_dict[gw]=match_list
+        return self.games_dict
