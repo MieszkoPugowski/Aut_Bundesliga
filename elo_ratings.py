@@ -43,3 +43,6 @@ class BundesligaElo:
         p_away = float(1 / (1 + 10 ** (elo_diff / 400)))-(0.5*p_draw)
         return {"home_win": p_home, "draw": p_draw, "away_win": p_away}
 
+    def update_elo_ratings(self,home,away,result,exp_result,k:float = 20.0):
+        self.ratings[home] = self.ratings[home]+k*(result-exp_result)
+        self.ratings[away] = self.ratings[away]-k*(result-exp_result)
