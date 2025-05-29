@@ -3,9 +3,9 @@ import random
 class CreateFixture:
     def __init__(self):
         self.teams = [
-        "Wolfsberger AC", "Austria Vienna", "SK Rapid", "Sturm Graz",
-        "BW Linz", "Salzburg", "Hartberg", "Tirol", "Grazer AK", "LASK",
-        "Altach", "Ried"
+        "Wolfsberg", "Austria Wien", "Rapid Wien", "Sturm Graz",
+        "BW Linz", "Salzburg", "Hartberg", "Wattens", "GAK", "LASK",
+        "Altach", "Klagenfurt"
     ]
         self.games_dict = {}
 
