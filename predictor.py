@@ -25,14 +25,13 @@ def calculate_xPts(PW,PD):
     return xP
 
 # importing a random fixture list
-gameweek_list = CreateFixture().create_gameweeks_list()
+gameweek_dict = CreateFixture().create_gameweeks_dict()
 table = []
 
 #creating a Bundesliga table in form of list of dictionaries
 for team in BUNDESLIGA_TEAMS:
     points = {"name":team,"xP":0,"xGD":0}
     table.append(points)
-print(gameweek_list[0][1])
 
 def one_gw_table():
     '''
