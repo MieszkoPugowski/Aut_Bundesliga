@@ -43,4 +43,3 @@ class BundesligaElo:
         p_away = float(1 / (1 + 10 ** (elo_diff / 400)))-(0.5*p_draw)
         return {"home_win": p_home, "draw": p_draw, "away_win": p_away}
 
-print(BundesligaElo().match_result_probabilities("LASK","Rapid Wien"))
