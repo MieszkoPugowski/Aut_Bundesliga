@@ -4,3 +4,4 @@
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/Aut_Bundesliga.iml
 __pycache__/dataset.cpython-313.pyc
+/__pycache__
