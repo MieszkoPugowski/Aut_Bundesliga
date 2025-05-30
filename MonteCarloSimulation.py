@@ -12,6 +12,7 @@ elo = BundesligaElo()
 league_dict = {}
 for team in elo.ratings.keys():
     league_dict[team] = 0
+start_time = time.time()
 class MonteCarloSim:
     def __init__(self,n:int=1):
         self.n = n
@@ -31,10 +32,11 @@ class MonteCarloSim:
 
     def simulate_season(self, season_fixture:Dict=season_dict):
         position_counts = defaultdict(lambda: defaultdict(int))
+        elo = BundesligaElo()
         for i in range(0,self.n):
             # Reset league points and elo ratings for each simulation
+            # Reset league points for each simulation
             league_dict = defaultdict(int)
-            elo = BundesligaElo()
             for gameweek in season_fixture:
                 for game in season_fixture[gameweek]:
                     result = self.simulate_one_game(game[0],game[1])
@@ -56,3 +58,10 @@ class MonteCarloSim:
         df = df.reindex(sorted(df.columns), axis=1)
         # Sort by most 1st places, then 2nd places, etc.
         df = df.sort_values(
+            by=list(df.columns),
+            ascending=[False] * len(df.columns),
+            kind='mergesort'
+        ).fillna(0).mul(1/self.n).round(2)
+        return df
+end_time = time.time()
+print(f"The simulation took: {round(end_time-start_time,5)}s")
