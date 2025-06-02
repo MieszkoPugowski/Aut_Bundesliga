@@ -10,7 +10,7 @@ season_dict = CreateFixture().create_gameweeks_dict()
 elo = BundesligaElo()
 
 league_dict = {}
-for team in elo.ratings.keys():
+for team in elo.ratings:
     league_dict[team] = 0
 start_time = time.time()
 class MonteCarloSim:
@@ -34,7 +34,6 @@ class MonteCarloSim:
         position_counts = defaultdict(lambda: defaultdict(int))
         elo = BundesligaElo()
         for i in range(0,self.n):
-            # Reset league points and elo ratings for each simulation
             # Reset league points for each simulation
             league_dict = defaultdict(int)
             for gameweek in season_fixture:
