@@ -55,7 +55,6 @@ class MonteCarloSim:
                 position_counts[team][position] += 1
         df = pd.DataFrame().from_dict(position_counts,orient="index")
         df = df.reindex(sorted(df.columns), axis=1)
-        # Sort by most 1st places, then 2nd places, etc.
         df = df.sort_values(
             by=list(df.columns),
             ascending=[False] * len(df.columns),
