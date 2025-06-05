@@ -1,12 +1,10 @@
 import random
+from elo_ratings import LeagueElo
 
 class CreateFixture:
-    def __init__(self):
-        self.teams = [
-        "Wolfsberg", "Austria Wien", "Rapid Wien", "Sturm Graz",
-        "BW Linz", "Salzburg", "Hartberg", "Wattens", "GAK", "LASK",
-        "Altach", "Klagenfurt"
-    ]
+    def __init__(self,country:str):
+        self.country_name = country
+        self.teams = list(LeagueElo(country=self.country_name).get_todays_league_elo().keys())
         self.games_dict = {}
 
 
@@ -34,6 +32,8 @@ class CreateFixture:
         self.all_rounds = first_half + second_half
 
     def create_gameweeks_dict(self):
+        if self.country_name == "POL":
+            self.teams.remove("Wisla")
         self._set_fixtures_order()
         for gw, matches in enumerate(self.all_rounds, start=1):
             match_list = []

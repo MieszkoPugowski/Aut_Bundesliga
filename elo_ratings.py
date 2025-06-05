@@ -6,13 +6,16 @@ import io
 import numpy as np
 import math
 
-class BundesligaElo:
-    def __init__(self,k:float = 20.0,home_advantage:float =29.6):
+class LeagueElo:
+    def __init__(self,country:str,k:float = 20.0,home_advantage:float =29.6):
         self.hfa = home_advantage
         self.k = k
-        self.ratings = self.get_todays_bundesliga_elo()
+        self.country_name = country
+        self.ratings = self.get_todays_league_elo()
 
     def _get_todays_elo(self):
+        # think about getting hfa from here and changing self.hfa
+        # think about picking only teams from the top league
         url = "http://api.clubelo.com/"
         today_date = str(date.today())
         file_download = urljoin(url,today_date)
@@ -21,16 +24,16 @@ class BundesligaElo:
         today_elo_csv = pd.read_csv(io.StringIO(file_content))
         return today_elo_csv
 
-    def get_todays_bundesliga_elo(self):
+    def get_todays_league_elo(self):
         today_elo = self._get_todays_elo()
-        bundesliga_today = (today_elo[today_elo["Country"]=="AUT"]
+        league_today = (today_elo[today_elo["Country"]==self.country_name]
         .reset_index(drop=True)[["Club","Elo"]]).to_dict()
-        bundesliga_dict = {}
-        for club in bundesliga_today["Club"]:
-            key = bundesliga_today["Club"][club]
-            value = bundesliga_today["Elo"][club]
-            bundesliga_dict[key]=value
-        return bundesliga_dict
+        league_dict = {}
+        for club in league_today["Club"]:
+            key = league_today["Club"][club]
+            value = league_today["Elo"][club]
+            league_dict[key]=value
+        return league_dict
 
     def match_result_probabilities(self,home,away):
         assert home,away in self.ratings.keys()
