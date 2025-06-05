@@ -12,7 +12,6 @@ elo = BundesligaElo()
 league_dict = {}
 for team in elo.ratings:
     league_dict[team] = 0
-start_time = time.time()
 class MonteCarloSim:
     def __init__(self,n:int=1):
         self.n = n
@@ -114,9 +113,3 @@ class MonteCarloSim:
         xPts_df = xPts_df.sort_values('Avg_xPts', ascending=False).round(2)
 
         return pos_df.merge(xPts_df,left_index=True,right_index=True).sort_values("Avg_xPts",ascending=False)
-
-
-sim_results = MonteCarloSim(10000).simulate_season()
-sim_results.to_csv("sim_results.csv")
-end_time = time.time()
-print(f"The simulation took: {round(end_time-start_time,5)}s")
