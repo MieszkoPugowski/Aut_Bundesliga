@@ -26,8 +26,8 @@ class LeagueElo:
 
     def get_todays_league_elo(self):
         today_elo = self._get_todays_elo()
-        league_today = (today_elo[today_elo["Country"]==self.country_name]
-        .reset_index(drop=True)[["Club","Elo"]]).to_dict()
+        league_today = (today_elo[(today_elo["Country"] == self.country_name) & (today_elo["Level"] == 1)]
+        .reset_index(drop=True)[["Club", "Elo"]]).to_dict()
         league_dict = {}
         for club in league_today["Club"]:
             key = league_today["Club"][club]
