@@ -32,8 +32,6 @@ class CreateFixture:
         self.all_rounds = first_half + second_half
 
     def create_gameweeks_dict(self):
-        if self.country_name == "POL":
-            self.teams.remove("Wisla")
         self._set_fixtures_order()
         for gw, matches in enumerate(self.all_rounds, start=1):
             match_list = []
