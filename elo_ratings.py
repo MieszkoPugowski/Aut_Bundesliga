@@ -9,9 +9,9 @@ import re
 
 class LeagueElo:
     def __init__(self,country:str,k:float = 20.0):
-        self.hfa = self._get_league_hfa()
         self.k = k
         self.country_name = country
+        self.hfa = self._get_league_hfa()
         self.ratings = self.get_todays_league_elo()
 
     def _get_todays_elo(self):
