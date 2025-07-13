@@ -1,6 +1,6 @@
 import random
 from elo_ratings import LeagueElo
-from random_fixture import CreateFixture
+from scraper import Fbref
 from collections import defaultdict
 import pandas as pd
 
@@ -10,7 +10,7 @@ class MonteCarloSim:
         self.league_dict = {}
         self.country_name = country
         self.elo = LeagueElo(country=self.country_name)
-        self.season_dict = CreateFixture(country=self.country_name).create_gameweeks_dict()
+        self.season_dict = Fbref().fixtures()
 
     def simulate_one_game(self,home,away):
         assert home,away in self.elo.ratings.keys()
