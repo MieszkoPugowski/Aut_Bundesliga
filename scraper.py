@@ -16,6 +16,11 @@ class Fbref:
         df = pd.read_html(f"https://fbref.com/en/comps/56/{self.season}/schedule/{self.season}-{self.league}-Scores-and-Fixtures",
                           attrs = {'id':"sched_2025-2026_56_1"})[0]
         fixtures = df.iloc[:,[0,4,6]]
+        #Standarizing names for compability with other models
+        fixtures = fixtures.replace(["WSG Tirol","SCR Altach","RB Salzburg",
+                                     "Austria Wien","Rapid Wien", "Blau-Weiß Linz"],
+                                    ["Tirol","Altach","Salzburg","Austria Vienna",
+                                     "SK Rapid","BW Linz"])
         fixt_dict = (
         fixtures.groupby('Wk')[['Home', 'Away']]
         .apply(lambda x: list(map(tuple, x.values)))
