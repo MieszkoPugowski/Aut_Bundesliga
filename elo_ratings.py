@@ -26,7 +26,11 @@ class LeagueElo:
     def get_todays_league_elo(self):
         today_elo = self._get_todays_elo()
         league_today = (today_elo[(today_elo["Country"] == self.country_name) & (today_elo["Level"] == 1)]
-        .reset_index(drop=True)[["Club", "Elo"]]).to_dict()
+        .reset_index(drop=True)[["Club", "Elo"]])
+        league_today = (league_today.replace(["Wattens","Wolfsberg", "Austria Wien",
+                                              "Rapid Wien","GAK"],
+                                             ["Tirol","Wolfsberger AC", "Austria Vienna",
+                                              "SK Rapid", "Grazer AK"])).to_dict()
         league_dict = {}
         for club in league_today["Club"]:
             key = league_today["Club"][club]
@@ -56,3 +60,6 @@ class LeagueElo:
     def update_elo_ratings(self,home,away,result,exp_result,k:float = 20.0):
         self.ratings[home] = self.ratings[home]+k*(result-exp_result)
         self.ratings[away] = self.ratings[away]-k*(result-exp_result)
+
+
+print(LeagueElo("AUT").get_todays_league_elo())
