@@ -11,7 +11,6 @@ class GetBundesligaResults:
     """
     def __init__(self):
         self.url ="https://www.football-data.co.uk/austria.php"
-        self.df = None
 
     def _get_bundesliga_results(self):
         r = requests.get(self.url)
